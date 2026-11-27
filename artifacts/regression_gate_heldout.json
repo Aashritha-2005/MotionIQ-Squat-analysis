@@ -1,0 +1,285 @@
+{
+ "role": "heldout",
+ "clips": 30,
+ "phase": {
+  "acc": 0.8940923259611103,
+  "macro_f1": 0.8885537173052134
+ },
+ "reps": {
+  "ref": 387,
+  "counted": 381,
+  "rejected_by_gates": 0,
+  "exact_clips": 25,
+  "mae_per_clip": 0.2
+ },
+ "rules_gt_segments": {
+  "knee_valgus": {
+   "tp": 0,
+   "fp": 1,
+   "fn": 0,
+   "tn": 252,
+   "precision": 0.0,
+   "recall": null,
+   "fpr": 0.003952569169960474
+  },
+  "shallow_depth": {
+   "tp": 82,
+   "fp": 18,
+   "fn": 12,
+   "tn": 129,
+   "precision": 0.82,
+   "recall": 0.8723404255319149,
+   "fpr": 0.12244897959183673
+  },
+  "forward_lean": {
+   "tp": 31,
+   "fp": 11,
+   "fn": 6,
+   "tn": 193,
+   "precision": 0.7380952380952381,
+   "recall": 0.8378378378378378,
+   "fpr": 0.05392156862745098
+  }
+ },
+ "rules_end_to_end": {
+  "knee_valgus": {
+   "tp": 0,
+   "fp": 1,
+   "fn": 0,
+   "tn": 252,
+   "precision": 0.0,
+   "recall": null,
+   "fpr": 0.003952569169960474
+  },
+  "shallow_depth": {
+   "tp": 79,
+   "fp": 17,
+   "fn": 15,
+   "tn": 130,
+   "precision": 0.8229166666666666,
+   "recall": 0.8404255319148937,
+   "fpr": 0.11564625850340136
+  },
+  "forward_lean": {
+   "tp": 31,
+   "fp": 11,
+   "fn": 6,
+   "tn": 193,
+   "precision": 0.7380952380952381,
+   "recall": 0.8378378378378378,
+   "fpr": 0.05392156862745098
+  }
+ },
+ "per_clip": [
+  {
+   "clip": "subject_004_squat_bad_diagonal",
+   "view": "diagonal",
+   "ref": 13,
+   "counted": 13,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_004_squat_bad_front",
+   "view": "front",
+   "ref": 11,
+   "counted": 11,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_004_squat_bad_side",
+   "view": "side",
+   "ref": 12,
+   "counted": 12,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_004_squat_good_diagonal",
+   "view": "diagonal",
+   "ref": 12,
+   "counted": 12,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_004_squat_good_front",
+   "view": "front",
+   "ref": 11,
+   "counted": 11,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_004_squat_good_side",
+   "view": "side",
+   "ref": 11,
+   "counted": 11,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_009_squat_bad_diagonal",
+   "view": "diagonal",
+   "ref": 20,
+   "counted": 20,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_009_squat_bad_front",
+   "view": "front",
+   "ref": 20,
+   "counted": 19,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_009_squat_bad_side",
+   "view": "side",
+   "ref": 20,
+   "counted": 18,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_009_squat_good_diagonal",
+   "view": "diagonal",
+   "ref": 9,
+   "counted": 9,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_009_squat_good_front",
+   "view": "front",
+   "ref": 10,
+   "counted": 10,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_009_squat_good_side",
+   "view": "side",
+   "ref": 10,
+   "counted": 10,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_010_squat_bad_diagonal",
+   "view": "diagonal",
+   "ref": 15,
+   "counted": 15,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_010_squat_bad_front",
+   "view": "front",
+   "ref": 15,
+   "counted": 15,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_010_squat_bad_side",
+   "view": "side",
+   "ref": 15,
+   "counted": 15,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_010_squat_good_diagonal",
+   "view": "diagonal",
+   "ref": 17,
+   "counted": 16,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_010_squat_good_front",
+   "view": "front",
+   "ref": 17,
+   "counted": 16,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_010_squat_good_side",
+   "view": "side",
+   "ref": 16,
+   "counted": 16,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_021_squat_bad_diagonal",
+   "view": "diagonal",
+   "ref": 14,
+   "counted": 13,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_021_squat_bad_front",
+   "view": "front",
+   "ref": 15,
+   "counted": 15,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_021_squat_bad_side",
+   "view": "side",
+   "ref": 15,
+   "counted": 15,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_021_squat_good_diagonal",
+   "view": "diagonal",
+   "ref": 11,
+   "counted": 11,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_021_squat_good_front",
+   "view": "front",
+   "ref": 12,
+   "counted": 12,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_021_squat_good_side",
+   "view": "side",
+   "ref": 0,
+   "counted": 0,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_024_squat_bad_diagonal",
+   "view": "diagonal",
+   "ref": 13,
+   "counted": 13,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_024_squat_bad_front",
+   "view": "front",
+   "ref": 11,
+   "counted": 11,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_024_squat_bad_side",
+   "view": "side",
+   "ref": 11,
+   "counted": 11,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_024_squat_good_diagonal",
+   "view": "diagonal",
+   "ref": 8,
+   "counted": 8,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_024_squat_good_front",
+   "view": "front",
+   "ref": 13,
+   "counted": 13,
+   "rejected": 0
+  },
+  {
+   "clip": "subject_024_squat_good_side",
+   "view": "side",
+   "ref": 10,
+   "counted": 10,
+   "rejected": 0
+  }
+ ]
+}

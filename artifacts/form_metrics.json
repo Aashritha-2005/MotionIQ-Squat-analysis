@@ -1,0 +1,1098 @@
+{
+ "scope": "held-out subjects only: subject_004, subject_009, subject_010, subject_021, subject_024 (30 clips), cached YOLO pose streamed frame by frame",
+ "model": "model_geom.onnx",
+ "pipeline_config": {
+  "lookahead": 0,
+  "lag_frames": 1,
+  "rep_counter": {
+   "k_in": 6,
+   "k_out": 1,
+   "k_bounce": 2,
+   "require": "da"
+  },
+  "form_rules": {
+   "shallow_depth": {
+    "feature": "hip_below_knee",
+    "stat": "max",
+    "op": "lt",
+    "threshold": -0.25917521119117737,
+    "threshold_per_view": {
+     "diagonal": -0.358325332403183,
+     "side": -0.23843276500701904
+    },
+    "tuned": true,
+    "tuned_on": "training-split subjects (20), ground-truth rep segments, streaming features"
+   },
+   "forward_lean": {
+    "feature": "trunk_lean",
+    "stat": "deep",
+    "op": "gt",
+    "threshold": 0.5043465793132782,
+    "threshold_per_view": {
+     "diagonal": 0.37801335752010345
+    },
+    "tuned": true,
+    "tuned_on": "training-split subjects (20), ground-truth rep segments, streaming features"
+   }
+  },
+  "knee_valgus_rule": {
+   "feature": "knee_ankle_ratio",
+   "stat": "deep",
+   "op": "lt",
+   "threshold": 0.6,
+   "tuned": false,
+   "status": "unvalidated (0 positive examples in the dataset)",
+   "source": "Noyes et al. 2005, Am J Sports Med 33(2):197-207 (drop-jump normalised knee separation < ~60% of ankle separation)"
+  },
+  "note": "rep counter tuned on internal-val subjects; rules tuned on training-split subjects; nothing tuned on held-out"
+ },
+ "streaming_parity": {
+  "clips": [
+   "subject_004_squat_bad_front",
+   "subject_004_squat_bad_side",
+   "subject_004_squat_bad_diagonal"
+  ],
+  "tolerance": {
+   "A_max_abs_diff_excl_fill_neighbourhood": 0.0001,
+   "C_frame_phase_agreement_all_heldout": 0.98
+  },
+  "definitions": {
+   "A": "stream given the offline scale, lookahead 7: code/fill equivalence",
+   "B": "stream given the offline scale, lookahead 0: + causal hold instead of interpolation",
+   "C": "deployed: lookahead 0 + causal running-median scale",
+   "z_diff": "|stream - stored| / training-split std per feature"
+  },
+  "tests": {
+   "A_offline_scale_lookahead7": [
+    {
+     "clip": "subject_004_squat_bad_front",
+     "view": "front",
+     "frames": 466,
+     "filled_frames": 2,
+     "max_abs_diff_all": 0.0,
+     "max_abs_diff_excl_fill_neighbourhood": 0.0,
+     "frames_with_diff>1e-4": 0,
+     "z_diff_p99": 0.0,
+     "z_diff_max": 0.0,
+     "phase_agreement_stream_vs_stored": 1.0
+    },
+    {
+     "clip": "subject_004_squat_bad_side",
+     "view": "side",
+     "frames": 481,
+     "filled_frames": 7,
+     "max_abs_diff_all": 0.0,
+     "max_abs_diff_excl_fill_neighbourhood": 0.0,
+     "frames_with_diff>1e-4": 0,
+     "z_diff_p99": 0.0,
+     "z_diff_max": 0.0,
+     "phase_agreement_stream_vs_stored": 1.0
+    },
+    {
+     "clip": "subject_004_squat_bad_diagonal",
+     "view": "diagonal",
+     "frames": 491,
+     "filled_frames": 0,
+     "max_abs_diff_all": 0.0,
+     "max_abs_diff_excl_fill_neighbourhood": 0.0,
+     "frames_with_diff>1e-4": 0,
+     "z_diff_p99": 0.0,
+     "z_diff_max": 0.0,
+     "phase_agreement_stream_vs_stored": 1.0
+    }
+   ],
+   "B_offline_scale_lookahead0": [
+    {
+     "clip": "subject_004_squat_bad_front",
+     "view": "front",
+     "frames": 466,
+     "filled_frames": 2,
+     "max_abs_diff_all": 1.5947239398956299,
+     "max_abs_diff_excl_fill_neighbourhood": 0.0,
+     "frames_with_diff>1e-4": 4,
+     "z_diff_p99": 0.0,
+     "z_diff_max": 1.9757739305496216,
+     "phase_agreement_stream_vs_stored": 1.0
+    },
+    {
+     "clip": "subject_004_squat_bad_side",
+     "view": "side",
+     "frames": 481,
+     "filled_frames": 7,
+     "max_abs_diff_all": 0.6616021394729614,
+     "max_abs_diff_excl_fill_neighbourhood": 0.0,
+     "frames_with_diff>1e-4": 19,
+     "z_diff_p99": 0.6278269290924072,
+     "z_diff_max": 1.118285059928894,
+     "phase_agreement_stream_vs_stored": 0.997920997920998
+    },
+    {
+     "clip": "subject_004_squat_bad_diagonal",
+     "view": "diagonal",
+     "frames": 491,
+     "filled_frames": 0,
+     "max_abs_diff_all": 0.0,
+     "max_abs_diff_excl_fill_neighbourhood": 0.0,
+     "frames_with_diff>1e-4": 0,
+     "z_diff_p99": 0.0,
+     "z_diff_max": 0.0,
+     "phase_agreement_stream_vs_stored": 1.0
+    }
+   ],
+   "C_deployed_running_scale_lookahead0": [
+    {
+     "clip": "subject_004_squat_bad_front",
+     "view": "front",
+     "frames": 466,
+     "filled_frames": 2,
+     "max_abs_diff_all": 1.5947239398956299,
+     "max_abs_diff_excl_fill_neighbourhood": 1.4056272506713867,
+     "frames_with_diff>1e-4": 455,
+     "z_diff_p99": 3.884408473968506,
+     "z_diff_max": 4.197922706604004,
+     "phase_agreement_stream_vs_stored": 0.9785407725321889
+    },
+    {
+     "clip": "subject_004_squat_bad_side",
+     "view": "side",
+     "frames": 481,
+     "filled_frames": 7,
+     "max_abs_diff_all": 0.6616021394729614,
+     "max_abs_diff_excl_fill_neighbourhood": 0.21037721633911133,
+     "frames_with_diff>1e-4": 471,
+     "z_diff_p99": 0.6278269290924072,
+     "z_diff_max": 1.118285059928894,
+     "phase_agreement_stream_vs_stored": 0.9958419958419958
+    },
+    {
+     "clip": "subject_004_squat_bad_diagonal",
+     "view": "diagonal",
+     "frames": 491,
+     "filled_frames": 0,
+     "max_abs_diff_all": 0.6121793985366821,
+     "max_abs_diff_excl_fill_neighbourhood": 0.6121793985366821,
+     "frames_with_diff>1e-4": 456,
+     "z_diff_p99": 1.3827528953552246,
+     "z_diff_max": 1.621489405632019,
+     "phase_agreement_stream_vs_stored": 0.9653767820773931
+    }
+   ]
+  },
+  "deployed_downstream_all_heldout": {
+   "heldout_clips": 30,
+   "frame_phase_agreement": 0.9834496066498442,
+   "clips_identical_rep_count(default RepCounter)": 30
+  },
+  "chosen_lookahead": 0,
+  "residual": "only the causal running-median body scale differs from the offline whole-clip median; it is largest in the first seconds of a clip"
+ },
+ "phase_streaming_heldout": {
+  "acc": 0.8940923259611103,
+  "macro_f1": 0.8885537173052134,
+  "f1_per_phase": {
+   "standing": 0.9186,
+   "descent": 0.8757,
+   "bottom": 0.8618,
+   "ascent": 0.8981
+  },
+  "confusion": [
+   [
+    4490,
+    190,
+    17,
+    188
+   ],
+   [
+    124,
+    2741,
+    358,
+    5
+   ],
+   [
+    0,
+    98,
+    1996,
+    40
+   ],
+   [
+    277,
+    3,
+    127,
+    2820
+   ]
+  ]
+ },
+ "rep_count": {
+  "reference": "auto-generated reps from labels.csv (1.3d) -- NOT an independent count",
+  "clips": 30,
+  "ref_reps_total": 387,
+  "pred_reps_total": 381,
+  "exact_match_clips": 25,
+  "within_1_clips": 29,
+  "mae_per_clip": 0.2,
+  "segment_match_iou>=0.3": {
+   "matched": 380,
+   "missed": 7,
+   "spurious": 1
+  },
+  "per_clip": [
+   {
+    "clip": "subject_004_squat_bad_diagonal",
+    "view": "diagonal",
+    "ref_reps": 13,
+    "pred_reps": 13,
+    "matched": 13,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_004_squat_bad_front",
+    "view": "front",
+    "ref_reps": 11,
+    "pred_reps": 11,
+    "matched": 11,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_004_squat_bad_side",
+    "view": "side",
+    "ref_reps": 12,
+    "pred_reps": 12,
+    "matched": 12,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_004_squat_good_diagonal",
+    "view": "diagonal",
+    "ref_reps": 12,
+    "pred_reps": 12,
+    "matched": 12,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_004_squat_good_front",
+    "view": "front",
+    "ref_reps": 11,
+    "pred_reps": 11,
+    "matched": 11,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_004_squat_good_side",
+    "view": "side",
+    "ref_reps": 11,
+    "pred_reps": 11,
+    "matched": 10,
+    "missed": 1,
+    "spurious": 1
+   },
+   {
+    "clip": "subject_009_squat_bad_diagonal",
+    "view": "diagonal",
+    "ref_reps": 20,
+    "pred_reps": 20,
+    "matched": 20,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_009_squat_bad_front",
+    "view": "front",
+    "ref_reps": 20,
+    "pred_reps": 19,
+    "matched": 19,
+    "missed": 1,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_009_squat_bad_side",
+    "view": "side",
+    "ref_reps": 20,
+    "pred_reps": 18,
+    "matched": 18,
+    "missed": 2,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_009_squat_good_diagonal",
+    "view": "diagonal",
+    "ref_reps": 9,
+    "pred_reps": 9,
+    "matched": 9,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_009_squat_good_front",
+    "view": "front",
+    "ref_reps": 10,
+    "pred_reps": 10,
+    "matched": 10,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_009_squat_good_side",
+    "view": "side",
+    "ref_reps": 10,
+    "pred_reps": 10,
+    "matched": 10,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_010_squat_bad_diagonal",
+    "view": "diagonal",
+    "ref_reps": 15,
+    "pred_reps": 15,
+    "matched": 15,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_010_squat_bad_front",
+    "view": "front",
+    "ref_reps": 15,
+    "pred_reps": 15,
+    "matched": 15,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_010_squat_bad_side",
+    "view": "side",
+    "ref_reps": 15,
+    "pred_reps": 15,
+    "matched": 15,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_010_squat_good_diagonal",
+    "view": "diagonal",
+    "ref_reps": 17,
+    "pred_reps": 16,
+    "matched": 16,
+    "missed": 1,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_010_squat_good_front",
+    "view": "front",
+    "ref_reps": 17,
+    "pred_reps": 16,
+    "matched": 16,
+    "missed": 1,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_010_squat_good_side",
+    "view": "side",
+    "ref_reps": 16,
+    "pred_reps": 16,
+    "matched": 16,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_021_squat_bad_diagonal",
+    "view": "diagonal",
+    "ref_reps": 14,
+    "pred_reps": 13,
+    "matched": 13,
+    "missed": 1,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_021_squat_bad_front",
+    "view": "front",
+    "ref_reps": 15,
+    "pred_reps": 15,
+    "matched": 15,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_021_squat_bad_side",
+    "view": "side",
+    "ref_reps": 15,
+    "pred_reps": 15,
+    "matched": 15,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_021_squat_good_diagonal",
+    "view": "diagonal",
+    "ref_reps": 11,
+    "pred_reps": 11,
+    "matched": 11,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_021_squat_good_front",
+    "view": "front",
+    "ref_reps": 12,
+    "pred_reps": 12,
+    "matched": 12,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_021_squat_good_side",
+    "view": "side",
+    "ref_reps": 0,
+    "pred_reps": 0,
+    "matched": 0,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_024_squat_bad_diagonal",
+    "view": "diagonal",
+    "ref_reps": 13,
+    "pred_reps": 13,
+    "matched": 13,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_024_squat_bad_front",
+    "view": "front",
+    "ref_reps": 11,
+    "pred_reps": 11,
+    "matched": 11,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_024_squat_bad_side",
+    "view": "side",
+    "ref_reps": 11,
+    "pred_reps": 11,
+    "matched": 11,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_024_squat_good_diagonal",
+    "view": "diagonal",
+    "ref_reps": 8,
+    "pred_reps": 8,
+    "matched": 8,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_024_squat_good_front",
+    "view": "front",
+    "ref_reps": 13,
+    "pred_reps": 13,
+    "matched": 13,
+    "missed": 0,
+    "spurious": 0
+   },
+   {
+    "clip": "subject_024_squat_good_side",
+    "view": "side",
+    "ref_reps": 10,
+    "pred_reps": 10,
+    "matched": 10,
+    "missed": 0,
+    "spurious": 0
+   }
+  ]
+ },
+ "form_rules_gt_segmentation": {
+  "knee_valgus": {
+   "all_observable_views": {
+    "n": 253,
+    "positives": 0,
+    "tp": 0,
+    "fp": 1,
+    "fn": 0,
+    "tn": 252,
+    "abstained": 0,
+    "precision": 0.0,
+    "recall": null,
+    "fpr": 0.003952569169960474
+   },
+   "by_view": {
+    "diagonal": {
+     "n": 132,
+     "positives": 0,
+     "tp": 0,
+     "fp": 1,
+     "fn": 0,
+     "tn": 131,
+     "abstained": 0,
+     "precision": 0.0,
+     "recall": null,
+     "fpr": 0.007575757575757576
+    },
+    "front": {
+     "n": 121,
+     "positives": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0,
+     "tn": 121,
+     "abstained": 0,
+     "precision": null,
+     "recall": null,
+     "fpr": 0.0
+    }
+   },
+   "status": "unvalidated (0 positive examples in the dataset)"
+  },
+  "shallow_depth": {
+   "all_observable_views": {
+    "n": 241,
+    "positives": 94,
+    "tp": 82,
+    "fp": 18,
+    "fn": 12,
+    "tn": 129,
+    "abstained": 0,
+    "precision": 0.82,
+    "recall": 0.8723404255319149,
+    "fpr": 0.12244897959183673
+   },
+   "by_view": {
+    "diagonal": {
+     "n": 132,
+     "positives": 47,
+     "tp": 43,
+     "fp": 10,
+     "fn": 4,
+     "tn": 75,
+     "abstained": 0,
+     "precision": 0.8113207547169812,
+     "recall": 0.9148936170212766,
+     "fpr": 0.11764705882352941
+    },
+    "side": {
+     "n": 109,
+     "positives": 47,
+     "tp": 39,
+     "fp": 8,
+     "fn": 8,
+     "tn": 54,
+     "abstained": 0,
+     "precision": 0.8297872340425532,
+     "recall": 0.8297872340425532,
+     "fpr": 0.12903225806451613
+    }
+   }
+  },
+  "forward_lean": {
+   "all_observable_views": {
+    "n": 241,
+    "positives": 37,
+    "tp": 31,
+    "fp": 11,
+    "fn": 6,
+    "tn": 193,
+    "abstained": 0,
+    "precision": 0.7380952380952381,
+    "recall": 0.8378378378378378,
+    "fpr": 0.05392156862745098
+   },
+   "by_view": {
+    "diagonal": {
+     "n": 132,
+     "positives": 25,
+     "tp": 21,
+     "fp": 9,
+     "fn": 4,
+     "tn": 98,
+     "abstained": 0,
+     "precision": 0.7,
+     "recall": 0.84,
+     "fpr": 0.08411214953271028
+    },
+    "side": {
+     "n": 109,
+     "positives": 12,
+     "tp": 10,
+     "fp": 2,
+     "fn": 2,
+     "tn": 95,
+     "abstained": 0,
+     "precision": 0.8333333333333334,
+     "recall": 0.8333333333333334,
+     "fpr": 0.020618556701030927
+    }
+   }
+  }
+ },
+ "form_rules_predicted_segmentation_matched_reps": {
+  "knee_valgus": {
+   "all_observable_views": {
+    "n": 249,
+    "positives": 0,
+    "tp": 0,
+    "fp": 1,
+    "fn": 0,
+    "tn": 248,
+    "abstained": 0,
+    "precision": 0.0,
+    "recall": null,
+    "fpr": 0.004016064257028112
+   },
+   "by_view": {
+    "diagonal": {
+     "n": 130,
+     "positives": 0,
+     "tp": 0,
+     "fp": 1,
+     "fn": 0,
+     "tn": 129,
+     "abstained": 0,
+     "precision": 0.0,
+     "recall": null,
+     "fpr": 0.007692307692307693
+    },
+    "front": {
+     "n": 119,
+     "positives": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0,
+     "tn": 119,
+     "abstained": 0,
+     "precision": null,
+     "recall": null,
+     "fpr": 0.0
+    }
+   },
+   "status": "unvalidated (0 positive examples in the dataset)"
+  },
+  "shallow_depth": {
+   "all_observable_views": {
+    "n": 236,
+    "positives": 91,
+    "tp": 79,
+    "fp": 17,
+    "fn": 12,
+    "tn": 128,
+    "abstained": 0,
+    "precision": 0.8229166666666666,
+    "recall": 0.8681318681318682,
+    "fpr": 0.11724137931034483
+   },
+   "by_view": {
+    "diagonal": {
+     "n": 130,
+     "positives": 46,
+     "tp": 42,
+     "fp": 10,
+     "fn": 4,
+     "tn": 74,
+     "abstained": 0,
+     "precision": 0.8076923076923077,
+     "recall": 0.9130434782608695,
+     "fpr": 0.11904761904761904
+    },
+    "side": {
+     "n": 106,
+     "positives": 45,
+     "tp": 37,
+     "fp": 7,
+     "fn": 8,
+     "tn": 54,
+     "abstained": 0,
+     "precision": 0.8409090909090909,
+     "recall": 0.8222222222222222,
+     "fpr": 0.11475409836065574
+    }
+   }
+  },
+  "forward_lean": {
+   "all_observable_views": {
+    "n": 236,
+    "positives": 37,
+    "tp": 31,
+    "fp": 11,
+    "fn": 6,
+    "tn": 188,
+    "abstained": 0,
+    "precision": 0.7380952380952381,
+    "recall": 0.8378378378378378,
+    "fpr": 0.05527638190954774
+   },
+   "by_view": {
+    "diagonal": {
+     "n": 130,
+     "positives": 25,
+     "tp": 21,
+     "fp": 9,
+     "fn": 4,
+     "tn": 96,
+     "abstained": 0,
+     "precision": 0.7,
+     "recall": 0.84,
+     "fpr": 0.08571428571428572
+    },
+    "side": {
+     "n": 106,
+     "positives": 12,
+     "tp": 10,
+     "fp": 2,
+     "fn": 2,
+     "tn": 92,
+     "abstained": 0,
+     "precision": 0.8333333333333334,
+     "recall": 0.8333333333333334,
+     "fpr": 0.02127659574468085
+    }
+   }
+  }
+ },
+ "form_rules_predicted_segmentation_end_to_end": {
+  "knee_valgus": {
+   "n": 249,
+   "positives": 0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 0,
+   "tn": 248,
+   "abstained": 0,
+   "precision": 0.0,
+   "recall": null,
+   "fpr": 0.004016064257028112,
+   "missed_positive_reps": 0,
+   "spurious_rep_firings": 0
+  },
+  "shallow_depth": {
+   "n": 236,
+   "positives": 91,
+   "tp": 79,
+   "fp": 18,
+   "fn": 15,
+   "tn": 128,
+   "abstained": 0,
+   "precision": 0.8144329896907216,
+   "recall": 0.8404255319148937,
+   "fpr": 0.11724137931034483,
+   "missed_positive_reps": 3,
+   "spurious_rep_firings": 1
+  },
+  "forward_lean": {
+   "n": 236,
+   "positives": 37,
+   "tp": 31,
+   "fp": 11,
+   "fn": 6,
+   "tn": 188,
+   "abstained": 0,
+   "precision": 0.7380952380952381,
+   "recall": 0.8378378378378378,
+   "fpr": 0.05527638190954774,
+   "missed_positive_reps": 0,
+   "spurious_rep_firings": 0
+  }
+ },
+ "notes": [
+  "Excluded per rule: reps tagged other/unclear (excl) and views where the fault is not observable (n/a).",
+  "Abstained reps (too few valid frames) count as 'not fired'.",
+  "Form-rule numbers measure agreement with the project author's own per-rep tags, not external ground truth.",
+  "knee_valgus: unvalidated (0 positive examples in the dataset); only its false-positive rate is meaningful."
+ ],
+ "tuning": {
+  "rep_counter": {
+   "objective": "min per-clip |count error| on val subjects; ties -> exact-match rate -> |signed error| -> more smoothing (larger k_in, k_out)",
+   "best_per_requirement_val": {
+    "dba": {
+     "clips": 21,
+     "mae": 0.5714285714285714,
+     "exact": 0.6190476190476191,
+     "ref_reps": 284,
+     "signed_total": -10,
+     "cfg": {
+      "k_in": 6,
+      "k_out": 1,
+      "k_bounce": 1,
+      "require": "dba"
+     }
+    },
+    "da": {
+     "clips": 21,
+     "mae": 0.23809523809523808,
+     "exact": 0.7619047619047619,
+     "ref_reps": 284,
+     "signed_total": -1,
+     "cfg": {
+      "k_in": 6,
+      "k_out": 1,
+      "k_bounce": 2,
+      "require": "da"
+     }
+    },
+    "ba": {
+     "clips": 21,
+     "mae": 0.5714285714285714,
+     "exact": 0.6190476190476191,
+     "ref_reps": 284,
+     "signed_total": -10,
+     "cfg": {
+      "k_in": 6,
+      "k_out": 1,
+      "k_bounce": 1,
+      "require": "ba"
+     }
+    },
+    "a": {
+     "clips": 21,
+     "mae": 0.23809523809523808,
+     "exact": 0.7619047619047619,
+     "ref_reps": 284,
+     "signed_total": 1,
+     "cfg": {
+      "k_in": 5,
+      "k_out": 1,
+      "k_bounce": 2,
+      "require": "a"
+     }
+    }
+   },
+   "grid_size": 480,
+   "chosen": {
+    "k_in": 6,
+    "k_out": 1,
+    "k_bounce": 2,
+    "require": "da"
+   },
+   "val": {
+    "clips": 21,
+    "mae": 0.23809523809523808,
+    "exact": 0.7619047619047619,
+    "ref_reps": 284,
+    "signed_total": -1
+   },
+   "train_subjects_check": {
+    "clips": 85,
+    "mae": 0.3176470588235294,
+    "exact": 0.8,
+    "ref_reps": 1204,
+    "signed_total": 1
+   },
+   "top5_val": [
+    {
+     "cfg": {
+      "k_in": 6,
+      "k_out": 1,
+      "k_bounce": 2,
+      "require": "da"
+     },
+     "clips": 21,
+     "mae": 0.23809523809523808,
+     "exact": 0.7619047619047619,
+     "ref_reps": 284,
+     "signed_total": -1
+    },
+    {
+     "cfg": {
+      "k_in": 5,
+      "k_out": 1,
+      "k_bounce": 2,
+      "require": "da"
+     },
+     "clips": 21,
+     "mae": 0.23809523809523808,
+     "exact": 0.7619047619047619,
+     "ref_reps": 284,
+     "signed_total": -1
+    },
+    {
+     "cfg": {
+      "k_in": 5,
+      "k_out": 1,
+      "k_bounce": 2,
+      "require": "a"
+     },
+     "clips": 21,
+     "mae": 0.23809523809523808,
+     "exact": 0.7619047619047619,
+     "ref_reps": 284,
+     "signed_total": 1
+    },
+    {
+     "cfg": {
+      "k_in": 4,
+      "k_out": 1,
+      "k_bounce": 2,
+      "require": "da"
+     },
+     "clips": 21,
+     "mae": 0.23809523809523808,
+     "exact": 0.7619047619047619,
+     "ref_reps": 284,
+     "signed_total": -1
+    },
+    {
+     "cfg": {
+      "k_in": 4,
+      "k_out": 1,
+      "k_bounce": 2,
+      "require": "a"
+     },
+     "clips": 21,
+     "mae": 0.23809523809523808,
+     "exact": 0.7619047619047619,
+     "ref_reps": 284,
+     "signed_total": 3
+    }
+   ]
+  },
+  "form_rules": {
+   "shallow_depth": {
+    "train_positives_per_view": {
+     "diagonal": 149,
+     "side": 137
+    },
+    "train_reps": 907,
+    "train_positives": 286,
+    "candidates": [
+     {
+      "feature": "hip_below_knee",
+      "stat": "max",
+      "op": "lt",
+      "threshold": -0.25917521119117737,
+      "train_f1": 0.6362204724409449,
+      "tp": 202,
+      "fp": 147,
+      "fn": 84,
+      "tn": 474
+     },
+     {
+      "feature": "hip_below_knee",
+      "stat": "p90",
+      "op": "lt",
+      "threshold": -0.3057984262704849,
+      "train_f1": 0.6287519747235387,
+      "tp": 199,
+      "fp": 148,
+      "fn": 87,
+      "tn": 473
+     },
+     {
+      "feature": "hip_below_knee",
+      "stat": "deep",
+      "op": "lt",
+      "threshold": -0.28904610872268677,
+      "train_f1": 0.6320474777448071,
+      "tp": 213,
+      "fp": 175,
+      "fn": 73,
+      "tn": 446
+     },
+     {
+      "feature": "knee_min",
+      "stat": "min",
+      "op": "gt",
+      "threshold": 0.31982091069221497,
+      "train_f1": 0.5409326424870466,
+      "tp": 261,
+      "fp": 418,
+      "fn": 25,
+      "tn": 203
+     },
+     {
+      "feature": "knee_min",
+      "stat": "p10",
+      "op": "gt",
+      "threshold": 0.36110012233257294,
+      "train_f1": 0.5268817204301075,
+      "tp": 245,
+      "fp": 399,
+      "fn": 41,
+      "tn": 222
+     },
+     {
+      "feature": "knee_min",
+      "stat": "deep",
+      "op": "gt",
+      "threshold": 0.3303997367620468,
+      "train_f1": 0.5200764818355641,
+      "tp": 272,
+      "fp": 488,
+      "fn": 14,
+      "tn": 133
+     }
+    ],
+    "chosen": {
+     "feature": "hip_below_knee",
+     "stat": "max",
+     "op": "lt",
+     "threshold": -0.25917521119117737,
+     "threshold_per_view": {
+      "diagonal": -0.358325332403183,
+      "side": -0.23843276500701904
+     },
+     "tuned": true,
+     "tuned_on": "training-split subjects (20), ground-truth rep segments, streaming features"
+    }
+   },
+   "forward_lean": {
+    "train_positives_per_view": {
+     "diagonal": 33,
+     "side": 2
+    },
+    "train_reps": 907,
+    "train_positives": 35,
+    "candidates": [
+     {
+      "feature": "trunk_lean",
+      "stat": "max",
+      "op": "gt",
+      "threshold": 0.5373869240283966,
+      "train_f1": 0.23809523809523808,
+      "tp": 20,
+      "fp": 113,
+      "fn": 15,
+      "tn": 759
+     },
+     {
+      "feature": "trunk_lean",
+      "stat": "p90",
+      "op": "gt",
+      "threshold": 0.5199591219425201,
+      "train_f1": 0.23809523809523808,
+      "tp": 15,
+      "fp": 76,
+      "fn": 20,
+      "tn": 796
+     },
+     {
+      "feature": "trunk_lean",
+      "stat": "deep",
+      "op": "gt",
+      "threshold": 0.5043465793132782,
+      "train_f1": 0.27450980392156865,
+      "tp": 14,
+      "fp": 53,
+      "fn": 21,
+      "tn": 819
+     }
+    ],
+    "chosen": {
+     "feature": "trunk_lean",
+     "stat": "deep",
+     "op": "gt",
+     "threshold": 0.5043465793132782,
+     "threshold_per_view": {
+      "diagonal": 0.37801335752010345
+     },
+     "tuned": true,
+     "tuned_on": "training-split subjects (20), ground-truth rep segments, streaming features"
+    }
+   }
+  }
+ }
+}

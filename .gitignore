@@ -1,0 +1,17 @@
+# local data: dataset videos, external clips, pose/feature caches, demo videos -- never committed
+data/*
+!data/labels.csv
+# large / derived artifacts
+artifacts/train_data.npz
+*.zip
+*.pt
+*.mp4
+*.webm
+*.npz
+# environment / OS
+.venv/
+__pycache__/
+*.pyc
+*.tmp
+.DS_Store
+.pytest_cache/

@@ -1,0 +1,45 @@
+{
+ "lookahead": 0,
+ "lag_frames": 1,
+ "rep_counter": {
+  "k_in": 6,
+  "k_out": 1,
+  "k_bounce": 2,
+  "require": "da"
+ },
+ "form_rules": {
+  "shallow_depth": {
+   "feature": "hip_below_knee",
+   "stat": "max",
+   "op": "lt",
+   "threshold": -0.25917521119117737,
+   "threshold_per_view": {
+    "diagonal": -0.358325332403183,
+    "side": -0.23843276500701904
+   },
+   "tuned": true,
+   "tuned_on": "training-split subjects (20), ground-truth rep segments, streaming features"
+  },
+  "forward_lean": {
+   "feature": "trunk_lean",
+   "stat": "deep",
+   "op": "gt",
+   "threshold": 0.5043465793132782,
+   "threshold_per_view": {
+    "diagonal": 0.37801335752010345
+   },
+   "tuned": true,
+   "tuned_on": "training-split subjects (20), ground-truth rep segments, streaming features"
+  }
+ },
+ "knee_valgus_rule": {
+  "feature": "knee_ankle_ratio",
+  "stat": "deep",
+  "op": "lt",
+  "threshold": 0.6,
+  "tuned": false,
+  "status": "unvalidated (0 positive examples in the dataset)",
+  "source": "Noyes et al. 2005, Am J Sports Med 33(2):197-207 (drop-jump normalised knee separation < ~60% of ankle separation)"
+ },
+ "note": "rep counter tuned on internal-val subjects; rules tuned on training-split subjects; nothing tuned on held-out"
+}
