@@ -233,13 +233,6 @@ rep segmentation, and counts missed reps as false negatives and spurious reps as
   This verifies the live capture path, person detection, lower-body keypoints, empty-scene handling and latency.
   It does **not** validate squat counting or form feedback on a live person.
 
-Demo video (attached to the GitHub release, not committed): a 60 s **replay-mode** overlay of two held-out dataset
-clips, `subject_009_squat_bad_diagonal` and `subject_021_squat_bad_side`, chosen as best cases. Source: the Mendeley
-squat dataset v3 by Prashanth et al. (DOI 10.17632/kgbb3yn47p.3), licensed
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Changes: replayed through this pipeline with a skeleton
-and text overlay, the two clips concatenated, re-encoded at 360×640. The dataset credit is drawn on every frame.
-It contains no footage of the author.
-
 ### 6. First live session: debugging
 
 A first live webcam session (side view, about 87 s, the author squatting) was used **for diagnosis only**. It
