@@ -82,7 +82,7 @@ Live webcam (`--view` decides which rules run; `--camera 1` for an external came
 Tests (tests that need local data are skipped on a fresh clone):
 
 ```bash
-.venv/bin/pip install -r requirements-dev.txt && .venv/bin/python -m pytest -q tests
+.venv/bin/python -m pytest -q tests
 ```
 
 Camera self-test, session debugging and the full pipeline: [docs/REPRODUCE.md](docs/REPRODUCE.md).
@@ -107,7 +107,7 @@ What was used and changed, the subject-wise split and the annotations: [docs/DAT
 MotionIQ-Squat-analysis/
 ├── README.md
 ├── LICENSE                   MIT (code only; dataset licenses above stay with their owners)
-├── requirements.txt          (+ requirements-dev.txt: pytest)
+├── requirements.txt          (includes pytest for the tests)
 ├── docs/                     results, live test, data, limitations, reproduce
 ├── tests/                    pytest regression tests
 ├── colab_training.ipynb      the only Colab artifact (training + ONNX export)

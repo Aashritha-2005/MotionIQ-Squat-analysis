@@ -74,5 +74,5 @@ Tests (rep counter, geometry and rules, streaming parity, empty frames, framing 
 skipped on a fresh clone):
 
 ```bash
-.venv/bin/pip install -r requirements-dev.txt && .venv/bin/python -m pytest -q tests
+.venv/bin/python -m pytest -q tests
 ```
